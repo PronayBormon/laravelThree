@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CategoryFormRequest;
+use App\Models\category;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -17,6 +20,32 @@ class CategoryController extends Controller
     }
     public function store(CategoryFormRequest $request)
     {
-        return view('admin.category.index');
+        $data = $request->validated();
+
+        $category = new category();
+        
+        $category->name = request('name');
+        $category->slug = request('slug');
+        $category->description = request('description');
+        // $category->image = request('image');
+        
+        if(request('image'))
+        {
+            $imageName = time().'_category.'.request('image')->extension();  
+            $request->image->move(public_path('public/images/category'),$imageName);
+            $category->image = $imageName;
+
+        }
+
+
+        $category->meta_title = request('meta_title');
+        $category->meta_description = request('meta_description');
+        $category->meta_keyword = request('meta_keyword');
+        $category->nav_status =  $request->nav_status == true?'1':'0';
+        $category->status =  $request->status == true?'1':'0';
+        $category->created_by = '1';
+        $category->save();
+
+        return redirect('admin/category');
     }
 }

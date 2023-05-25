@@ -19,6 +19,6 @@ class category extends Model
             'meta_keyword',
             'nav_status',
             'status',
-            'created_by'
+            'created_by',
     ];
 }

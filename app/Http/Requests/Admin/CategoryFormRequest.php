@@ -23,33 +23,29 @@ class CategoryFormRequest extends FormRequest
     {
         return [
             'name'=>[
-                'require',
                 'string'
             ],
             'slug'=>[
                 'string'
             ],
             'description'=>[
-                'text'
+                'string'
             ],
             'image'=>[
-                'text',
-                'mimes: png,jpeg,jpg'
+                'mimes:png,jpeg,jpg'
             ],
             'meta_title'=>[
                 'string'
             ],
             'meta_description'=>[
-                'text'
+                'string'
             ],
             'meta_keyword'=>[
                 'string'
             ],
             'nav_status'=>[
-                'integer'
             ],
             'status'=>[
-                'integer'
             ],
             'created_by'=>[
                 'integer'
